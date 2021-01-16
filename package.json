@@ -54,6 +54,7 @@
 		"test:algo": "ts-node server/src/api/index.ts"
 	},
 	"devDependencies": {
+		"@types/acorn": "^4.0.5",
 		"@types/mocha": "^8.0.3",
 		"@types/node": "^12.12.0",
 		"@typescript-eslint/parser": "^2.3.0",
