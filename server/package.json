@@ -21,6 +21,7 @@
 		"format": "prettier --config .prettierrc.yaml --ignore-path .prettierignore --write \"src/**/*\" "
 	},
 	"devDependencies": {
+		"@types/acorn": "^4.0.5",
 		"prettier": "^2.2.1"
 	}
 }
