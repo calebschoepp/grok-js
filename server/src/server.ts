@@ -2,26 +2,17 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License. See License.txt in the project root for license information.
  * ------------------------------------------------------------------------------------------ */
-import {
-  createConnection,
-  TextDocuments,
-  Diagnostic,
-  DiagnosticSeverity,
-  ProposedFeatures,
-  InitializeParams,
-  DidChangeConfigurationNotification,
-  CompletionItem,
-  CompletionItemKind,
-  TextDocumentPositionParams,
-  TextDocumentSyncKind,
-  InitializeResult,
-  DocumentHighlightParams,
-  ServerCapabilities,
-  CancellationToken,
-  DocumentHighlight,
-} from 'vscode-languageserver/node';
-
 import { TextDocument } from 'vscode-languageserver-textdocument';
+import {
+  CancellationToken,
+  createConnection,
+  DocumentHighlight,
+  DocumentHighlightParams,
+  InitializeParams,
+  InitializeResult,
+  ProposedFeatures,
+  TextDocuments,
+} from 'vscode-languageserver/node';
 
 // Create a connection for the server, using Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -29,54 +20,43 @@ let connection = createConnection(ProposedFeatures.all);
 // Create a simple text document manager.
 let documents: TextDocuments<TextDocument> = new TextDocuments(TextDocument);
 
-let hasConfigurationCapability: boolean = false;
-let hasWorkspaceFolderCapability: boolean = false;
-let hasDiagnosticRelatedInformationCapability: boolean = false;
-
 connection.onInitialize(
-  (_params: InitializeParams): InitializeResult => {
-    // const initializationOptions = params.initializationOptions;
-    //   let capabilities = params.capabilities;
-
-    //   // Does the client support the `workspace/configuration` request?
-    //   // If not, we fall back using global settings.
-    //   hasConfigurationCapability = !!(
-    //     capabilities.workspace && !!capabilities.workspace.configuration
-    //   );
-    //   hasWorkspaceFolderCapability = !!(
-    //     capabilities.workspace && !!capabilities.workspace.workspaceFolders
-    //   );
-    //   hasDiagnosticRelatedInformationCapability = !!(
-    //     capabilities.textDocument &&
-    //     capabilities.textDocument.publishDiagnostics &&
-    //     capabilities.textDocument.publishDiagnostics.relatedInformation
-    //   );
-
-    const capabilities: ServerCapabilities = {
+  (_params: InitializeParams): InitializeResult => ({
+    capabilities: {
       documentHighlightProvider: true,
       hoverProvider: true,
-    };
-
-    return { capabilities };
-  }
+    },
+  })
 );
-
-connection.onInitialized(() => {});
-
-type documentHighlight = DocumentHighlight[] | null;
 
 connection.onDocumentHighlight(
   (
     params: DocumentHighlightParams,
     token: CancellationToken
-  ): documentHighlight => {
+  ): DocumentHighlight[] | null => {
     const document = documents.get(params.textDocument.uri);
     if (document) {
-      connection.console.log(document.getText());
+      const start = params.position;
+      //   const end = document.
+      const text = document.getText();
+
+      //   const highlight: DocumentHighlight = {
+      //     range: range,
+      //     type: DocumentHighlightKind.Text,
+      //   };
+      //   return [highlight];
     }
     return [];
   }
 );
+
+connection.onHover(() => {
+  return null;
+});
+
+// Make the text document manager listen on the connection
+// for open, change and close text document events
+documents.listen(connection);
 
 // Listen on the connection
 connection.listen();
