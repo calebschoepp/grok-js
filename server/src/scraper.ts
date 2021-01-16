@@ -33,14 +33,10 @@ async function scrape(url: string) {
     const res = await axios.get(url);
     const root = parse(res.data);
 
-    console.log(findElementWithClassname(root, 'title'));
-
-    // console.log(inspect(root));
-
-    let doc: Document = {
-        title: '',
+    const doc: Document = {
+        title: findElementWithClassname(root, 'title')?.innerText || '',
         source: url,
-        summary: '',
+        summary: findElementWithClassname(root, 'summary')?.innerText || '',
     };
 
     return doc;
