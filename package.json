@@ -1,6 +1,6 @@
 {
-	"name": "lsp-sample",
-	"description": "A language server example",
+	"name": "grok-js",
+	"description": "Helps you grok JS",
 	"author": "Microsoft Corporation",
 	"license": "MIT",
 	"version": "1.0.0",
@@ -50,7 +50,8 @@
 		"compile": "tsc -b",
 		"watch": "tsc -b -w",
 		"postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
-		"test": "sh ./scripts/e2e.sh"
+		"test": "sh ./scripts/e2e.sh",
+		"ts-node": "ts-node"
 	},
 	"devDependencies": {
 		"@types/mocha": "^8.0.3",
