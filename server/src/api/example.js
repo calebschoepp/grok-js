@@ -17,3 +17,12 @@ let myArray = [...[1, 2, 3], ...[4, 5, 6]];
 console.log(`Hello ${myArray}`);
 
 // Async/Await?
+
+// Operators
+console.log(1 + 2);
+
+// Function
+function aFunc() {
+    let a = 4;
+    return a;
+}
