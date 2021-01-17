@@ -36,7 +36,7 @@ async function scrape(url: string) {
     const doc: Document = {
         title: findElementWithClassname(root, 'title')?.innerText || '',
         source: url,
-        summary: findElementWithClassname(root, 'summary')?.innerText || '',
+        summary: root.querySelector('p').innerText || '', // Assume summary is first paragraph shown
     };
 
     return doc;
