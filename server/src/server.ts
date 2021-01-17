@@ -36,15 +36,13 @@ connection.onDocumentHighlight(
   ): DocumentHighlight[] | null => {
     const document = documents.get(params.textDocument.uri);
     if (document) {
-      const start = params.position;
-      //   const end = document.
+      // offset from beginning of document to where cursor is
+      const offset = document.offsetAt(params.position);
+      // entired document's text
       const text = document.getText();
-
-      //   const highlight: DocumentHighlight = {
-      //     range: range,
-      //     type: DocumentHighlightKind.Text,
-      //   };
-      //   return [highlight];
+      console.log(offset);
+      // call algorithm and get returned object
+      // if possible, get ending index to highlight on client side
     }
     return [];
   }
